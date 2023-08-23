@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Database</string>
+    <string name="banco_de_dados">Add user to database Example:</string>
+    <string name="insert_user">Insert User</string>
+    <string name="read_users">Read Users</string>
+    <string name="email">Email</string>
+    <string name="senha">Password</string>
+    <string name="clear_database">Clear Database</string>
+</resources>
