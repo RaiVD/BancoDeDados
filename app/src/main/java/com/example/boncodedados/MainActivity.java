@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String email = emailEditText.getText().toString();
                 String senha = senhaEditText.getText().toString();
-                inserirUsuario(email, senha);
+
+                if (isValidEmail(email) && isValidPassword(senha)) {
+                    inserirUsuario(email, senha);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Email ou senha inválidos.", Toast.LENGTH_SHORT).show();
+//                    resultTextView.setText("Email ou senha inválidos.");
+                }
             }
         });
 
@@ -56,7 +63,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 limparBancoDados();
-                resultTextView.setText("Banco de dados limpo.");
+                Toast.makeText(getApplicationContext(), "Banco de dados limpo.", Toast.LENGTH_SHORT).show();
+//                resultTextView.setText("Banco de dados limpo.");
             }
         });
     }
@@ -103,6 +111,15 @@ public class MainActivity extends AppCompatActivity {
     private void limparBancoDados() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.delete(UserContract.UserEntry.TABLE_NAME, null, null);
+    }
+    private boolean isValidEmail(String email) {
+        // Verificar se o email contém o símbolo "@" e termina com "@gmail.com"
+        return email.contains("@") && email.endsWith("@gmail.com");
+    }
+
+    private boolean isValidPassword(String password) {
+        // Verificar se a senha tem um comprimento de 8 caracteres
+        return password.length() == 8;
     }
 }
 
